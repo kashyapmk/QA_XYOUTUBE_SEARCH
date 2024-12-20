@@ -30,7 +30,65 @@ public class TestCases extends ExcelDataProvider{ // Lets us read the data
          * TODO: Write your tests here with testng @Test annotation.
          * Follow `testCase01` `testCase02`... format or what is provided in
          * instructions
-         */
+        */
+
+        @Test(enabled = true)
+        public void testCase01(){
+                Wrappers wp = new Wrappers(driver);
+                
+                wp.NavigateToUrl();
+                String txt = wp.getAboutMessage();
+                System.out.println(txt);
+
+        }
+
+        @Test(enabled = true)
+        public void testCase02(){
+                Wrappers wp = new Wrappers(driver);
+                SoftAssert sa = new SoftAssert();
+
+                wp.NavigateToUrl();
+                wp.selectExploreOption("Movies");
+                String[] movie = wp.verifyTopSellingMovies();
+                System.out.println(movie[0]);
+                System.out.println(movie[1]);
+
+                sa.assertTrue(movie[0].contains("U") || movie[0].contains("A") || movie[0].contains("U/A") || movie[0].contains("R"));
+                sa.assertTrue(movie[1].contains("Animation") || movie[1].contains("Comedy") || movie[1].contains("Drama"));
+                sa.assertAll();
+
+        }
+
+        @Test(enabled = true)
+        public void testCase03(){
+                
+                Wrappers wp = new Wrappers(driver);
+                SoftAssert sa = new SoftAssert();
+
+                wp.NavigateToUrl();
+                wp.selectExploreOption("Music");
+                wp.verifyMusic();
+                String title = wp.songTitle;
+                int likes = wp.songLikes;
+                System.out.println("song Title: "+title);
+                System.out.println("Song Likes: "+likes);
+
+                sa.assertTrue(likes <= 50 && likes > 0);
+                sa.assertAll();
+                
+        }
+
+        @Test(enabled = true)
+        public void testCase04(){
+
+                Wrappers wp = new Wrappers(driver);
+                
+                wp.NavigateToUrl();
+                wp.selectExploreOption("News");
+                wp.verifyLatestNews();
+
+        }
+
 
         /*
          * Do not change the provided methods unless necessary, they will help in
